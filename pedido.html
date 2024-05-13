@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pedidos</title>
+
+        <style>
+            body{
+                font-family: monospace;
+                text-align: left;
+                margin: 0 auto;
+                padding: 30px;
+                background-color: rgb(208, 172, 245, 0.986);
+            }
+
+            h1, h2{
+                text-align: left;
+                color: rgb(73, 70, 70);
+            }
+
+            table{
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            table, th, td{
+                border: 1px solid rgb(73, 70, 70);
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Resumo do Pedido</h1>
+
+        <table>
+            <tr>
+                <th>----------- RESUMO DO PEDIDO -----------</th>
+            </tr>
+            <tr>
+                <td id="pedido-descricao"></td>
+            </tr>
+        </table>
+
+        <h2>Total do Pedido:</h2>
+        <p id="pedido-total">R$ ------</p>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                // Extrair os parametros da URL:
+                const urlParams = new URLSearchParams(window.location.search);
+                const pedidoString = urlParams.get('pedido');
+
+                if(pedidoString){
+                    // Converter a String JSON em objeto JavaScript
+                    const pedidoJSON = JSON.parse(pedidoString);
+
+                    // Atualizar o conteudo da pagina com os detalhes do pedido
+                    const descricaPedidoElement = document.getElementById('pedido-descricao');
+                    descricaPedidoElement.innerHTML = pedidoJSON.descricao;
+
+                    const totalPedidoElement = document.getElementById('pedido-total');
+                    totalPedidoElement.textContent = 'Total do Pedido: R$ ' + pedidoJSON.total;
+                }
+            })
+        </script>
+
+    </body>
+</html>
